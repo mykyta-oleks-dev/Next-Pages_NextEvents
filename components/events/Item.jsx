@@ -17,7 +17,7 @@ const EventItem = ({ event }) => {
 					<h2>{event.title}</h2>
 					<div className={classes.date}>
 						<DateIcon />
-						<time datetime={event.date}>{parsedDate}</time>
+						<time dateTime={event.date}>{parsedDate}</time>
 					</div>
 					<div className={classes.address}>
 						<AddressIcon />

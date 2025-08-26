@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import Button from '../ui/Button';
 import classes from './Search.module.css';
+import { useRouter } from 'next/router';
 
 const years = [2025, 2024];
 
@@ -18,13 +20,33 @@ const months = [
 	{ value: 12, label: 'December' },
 ];
 
-const EventsSearch = () => {
+const EventsSearch = ({ defaultYear, defaultMonth }) => {
+	const yearRef = useRef(null);
+	const monthRef = useRef(null);
+	const router = useRouter();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		const year = yearRef.current.value;
+		const month = monthRef.current.value;
+
+		router.push(`/events/${year}/${month}`);
+	};
+
 	return (
-		<form className={classes.form}>
+		<form className={classes.form} onSubmit={handleSubmit}>
 			<div className={classes.controls}>
 				<div className={classes.control}>
 					<label htmlFor="yeah">Year</label>
-					<select name="year" id="year">
+					<select
+						name="year"
+						id="year"
+						ref={yearRef}
+						defaultValue={
+							defaultYear ? defaultYear + '' : undefined
+						}
+					>
 						{years.map((y) => (
 							<option key={`y-${y}`} value={y}>
 								{y}
@@ -34,7 +56,14 @@ const EventsSearch = () => {
 				</div>
 				<div className={classes.control}>
 					<label htmlFor="month">Month</label>
-					<select name="month" id="month">
+					<select
+						name="month"
+						id="month"
+						ref={monthRef}
+						defaultValue={
+							defaultMonth ? defaultMonth + '' : undefined
+						}
+					>
 						{months.map(({ value, label }) => (
 							<option key={`m-${value}`} value={value}>
 								{label}
