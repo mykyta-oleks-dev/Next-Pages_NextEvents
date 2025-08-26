@@ -1,5 +1,8 @@
-import classes from './Item.module.css'
+import classes from './Item.module.css';
 import ButtonLink from '../ButtonLink';
+import DateIcon from '../icons/DateIcon';
+import AddressIcon from '../icons/AddressIcon';
+import ArrowRightIcon from '../icons/ArrowRightIcon';
 
 const EventItem = ({ event }) => {
 	const parsedDate = new Date(event.date).toLocaleDateString('en-US', {
@@ -16,14 +19,21 @@ const EventItem = ({ event }) => {
 				<div>
 					<h2>{event.title}</h2>
 					<div className={classes.date}>
+						<DateIcon />
 						<time datetime={event.date}>{parsedDate}</time>
 					</div>
 					<div className={classes.address}>
+						<AddressIcon />
 						<address>{parsedLocation}</address>
 					</div>
 				</div>
 				<div className={classes.actions}>
-					<ButtonLink href={`/events/${event.id}`}>Explore event</ButtonLink>
+					<ButtonLink href={`/events/${event.id}`}>
+						<span>Explore event</span>
+						<span className={classes.icon}>
+							<ArrowRightIcon />
+						</span>
+					</ButtonLink>
 				</div>
 			</div>
 		</li>
