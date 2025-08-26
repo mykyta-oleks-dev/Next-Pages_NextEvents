@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Description
 
-## Getting Started
+This is a web application built with NextJS and Pages routing browsing events. Have a look at the list of events we are ready to present to you!
 
-First, run the development server:
+## Technologies used
 
-```bash
-npm run dev
-# or
-yarn dev
+-   Next.JS - "The React Framework for the Web".
+
+-   TypeScript - a strongly typed programming language that builds on JavaScript.
+
+-   Node.JS - free, open-source, cross-platform JavaScript runtime environment.
+
+-   npm - package manager for the JavaScript programming language maintained by npm, Inc., a subsidiary of GitHub.
+
+## Installation
+
+The project uses `npm` as the package manager.
+
+```shell
+$ npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the project
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+To run the application in development mode:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```shell
+$ npm run dev
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To build the project files perform Typescript transpilation:
 
-## Learn More
+```shell
+$ npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   Browse events: Navigate to the `All events` page to see all events available or see the featured ones on the home page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   Get the details on the particular event: Navigate to the event you are interested in and have a look at the details, such as place, date and description.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   Filter details list: Set up year and month of events as you want and search by the filter parameters.
