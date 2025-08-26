@@ -1,5 +1,5 @@
 import classes from './Item.module.css';
-import ButtonLink from '../ButtonLink';
+import Button from '../ui/Button';
 import DateIcon from '../icons/DateIcon';
 import AddressIcon from '../icons/AddressIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
@@ -25,12 +25,12 @@ const EventItem = ({ event }) => {
 					</div>
 				</div>
 				<div className={classes.actions}>
-					<ButtonLink href={`/events/${event.id}`}>
+					<Button href={`/events/${event.id}`}>
 						<span>Explore event</span>
 						<span className={classes.icon}>
 							<ArrowRightIcon />
 						</span>
-					</ButtonLink>
+					</Button>
 				</div>
 			</div>
 		</li>
