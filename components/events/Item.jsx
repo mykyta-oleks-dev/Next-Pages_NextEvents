@@ -3,14 +3,11 @@ import ButtonLink from '../ButtonLink';
 import DateIcon from '../icons/DateIcon';
 import AddressIcon from '../icons/AddressIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
+import { parseDate, parseLocation } from '../../util/parse';
 
 const EventItem = ({ event }) => {
-	const parsedDate = new Date(event.date).toLocaleDateString('en-US', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	});
-	const parsedLocation = event.location.replace(', ', '\n');
+	const parsedDate = parseDate(event.date);
+	const parsedLocation = parseLocation(event.location);
 
 	return (
 		<li className={classes.item}>

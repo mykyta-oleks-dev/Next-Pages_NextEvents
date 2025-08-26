@@ -6,7 +6,6 @@ const HomePage = () => {
 
 	return (
 		<div>
-			<h1>HomePage</h1>
 			<EventsList events={events} />
 		</div>
 	);
