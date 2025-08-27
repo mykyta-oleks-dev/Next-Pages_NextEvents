@@ -15,8 +15,23 @@ function NewsletterRegistration() {
 			},
 			body: JSON.stringify({ email }),
 		})
-			.then((res) => res.json())
-			.then((data) => alert(data.message));
+			.then(async (res) => {
+				const data = await res.json();
+
+				if (!res.ok) {
+					throw new Error(
+						data.message ?? 'An error subscribing to newsletters'
+					);
+				}
+
+				return data;
+			})
+			.then((data) => alert(data.message))
+			.catch((err) => {
+				console.error(err);
+
+				alert(err.message);
+			});
 	}
 
 	return (

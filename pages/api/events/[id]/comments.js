@@ -1,15 +1,18 @@
-export default function handler(req, res) {
+import { getCollection } from '../../../../lib/mongodb/client';
+
+export default async function handler(req, res) {
 	switch (req.method) {
 		case 'POST':
-			return POST(req, res);
-
+			return await POST(req, res);
 		case 'GET':
 		default:
-			return GET(req, res);
+			return await GET(req, res);
 	}
 }
 
-const POST = (req, res) => {
+const POST = async (req, res) => {
+	const { id } = req.query;
+	console.log({ id });
 	const { email, name, content } = req.body;
 
 	if (
@@ -27,42 +30,47 @@ const POST = (req, res) => {
 	}
 
 	const newComment = {
-		id: Date.now(),
+		eventId: id,
 		email,
 		name,
 		content,
+		createdAt: new Date(),
 	};
 
-	return res.status(201).json({
-		message: 'Comment was saved!',
-		comment: newComment,
-	});
+	try {
+		const collection = await getCollection('comments');
+
+		const result = await collection.insertOne(newComment);
+
+		return res.status(201).json({
+			message: 'Comment was saved!',
+			comment: { ...newComment, _id: result.insertedId },
+		});
+	} catch (err) {
+		console.error('MongoDB insert error:', err);
+
+		return res.status(500).json({ message: 'Saving comment failed.' });
+	}
 };
 
-const GET = (req, res) => {
+const GET = async (req, res) => {
 	const { id } = req.query;
 
-	return res.status(200).json({
-		message: 'Comments for an events fetched successfully!',
-		comments: [
-			{
-				id: 1,
-				email: 'test@test.test',
-				name: 'test 1',
-				content: `content 1 of event #${id}`,
-			},
-			{
-				id: 2,
-				email: 'test@test.test',
-				name: 'test 2',
-				content: `content 2 of event #${id}`,
-			},
-			{
-				id: 3,
-				email: 'test@test.test',
-				name: 'test 3',
-				content: `content 3 of event #${id}`,
-			},
-		],
-	});
+	try {
+		const collection = await getCollection('comments');
+
+		const comments = await collection
+			.find({ eventId: id })
+			.sort({ createdAt: -1 })
+			.toArray();
+
+		return res.status(200).json({
+			message: 'Comments fetched successfully!',
+			comments,
+		});
+	} catch (err) {
+		console.error('MongoDB fetch error:', err);
+
+		return res.status(500).json({ message: 'Fetching comments failed.' });
+	}
 };

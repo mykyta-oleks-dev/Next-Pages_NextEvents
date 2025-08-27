@@ -24,22 +24,30 @@ const POST = async (req, res) => {
 	try {
 		const collection = await getCollection('newsletter');
 
+		const candidate = await collection.findOne({
+			email,
+		});
+
+		if (candidate) {
+			return res.status(422).json({
+				message: 'Email address is already subscribed.',
+			});
+		}
+
 		const result = await collection.insertOne({
 			email,
 			createdAt: new Date(),
 		});
 
-		return res
-			.status(201)
-			.json({
-				message: 'You have been registered!',
-				id: result.insertedId,
-			});
+		return res.status(201).json({
+			message: 'You have been registered!',
+			id: result.insertedId,
+		});
 	} catch (err) {
-		console.error(err);
+		console.error('MongoDB insert error:', err);
 
 		return res.status(500).json({
-			message: 'An error occured saving the emailf for mailing',
+			message: 'Subscribing failed.',
 		});
 	}
 };
@@ -51,7 +59,7 @@ const GET = async (req, res) => {
 
 		return res.status(200).json({ subscribers: docs });
 	} catch (err) {
-		console.error("MongoDB fetch error:", err);
-		return res.status(500).json({ message: "Something went wrong." });
+		console.error('MongoDB fetch error:', err);
+		return res.status(500).json({ message: 'Something went wrong.' });
 	}
 };

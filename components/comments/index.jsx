@@ -6,13 +6,17 @@ import classes from './Comments.module.css';
 
 function Comments({ eventId }) {
 	const [showComments, setShowComments] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [comments, setComments] = useState([]);
 
 	function toggleCommentsHandler() {
 		if (!showComments) {
 			fetch(`/api/events/${eventId}/comments`)
 				.then((res) => res.json())
-				.then((data) => setComments(data.comments));
+				.then((data) => {
+					setIsLoading(false);
+					setComments(data.comments);
+				});
 		}
 
 		setShowComments((prevStatus) => !prevStatus);
@@ -26,8 +30,24 @@ function Comments({ eventId }) {
 			},
 			body: JSON.stringify(commentData),
 		})
-			.then((res) => res.json())
-			.then((data) => alert(data.message));
+			.then(async (res) => {
+				const data = await res.json();
+
+				if (!res.ok) {
+					throw new Error(data.message ?? 'An error saving comment');
+				}
+
+				return data;
+			})
+			.then((data) => {
+				alert(data.message);
+				setComments((prev) => [data.comment, ...prev]);
+			})
+			.catch((err) => {
+				console.error(err);
+
+				alert(err.message);
+			});
 	}
 
 	return (
@@ -36,7 +56,8 @@ function Comments({ eventId }) {
 				{showComments ? 'Hide' : 'Show'} Comments
 			</button>
 			{showComments && <NewComment onAddComment={handleAddComment} />}
-			{showComments && <CommentList comments={comments} />}
+			{!isLoading && showComments && <CommentList comments={comments} />}
+			{isLoading && showComments && <p className="center">Loading...</p>}
 		</section>
 	);
 }
