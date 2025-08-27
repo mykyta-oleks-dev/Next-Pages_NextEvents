@@ -3,22 +3,47 @@ import EventSummary from '../../components/events/detail/EventSummary';
 import EventLogistics from '../../components/events/detail/EventLogistics';
 import EventContent from '../../components/events/detail/EventContent';
 import ErrorAlert from '../../components/ErrorAlert';
+import Head from 'next/head';
 
 const EventDetailsPage = ({ event }) => {
-	if (!event) {
-		return <p className="center">Loading...</p>;
-	}
-
 	if (event === null) {
 		return (
-			<ErrorAlert>
-				<p>Event not found!</p>
-			</ErrorAlert>
+			<>
+				<Head>
+					<title>Event not found - NextEvents</title>
+					<meta
+						name="description"
+						content="Check your request for possible errors"
+					/>
+				</Head>
+				<ErrorAlert>
+					<p>Event not found!</p>
+				</ErrorAlert>
+			</>
+		);
+	}
+
+	if (!event) {
+		return (
+			<>
+				<Head>
+					<title>Searching for event... - NextEvents</title>
+					<meta
+						name="description"
+						content="Please wait while we are looking for what you are seeking"
+					/>
+				</Head>
+				<p className="center">Loading...</p>;
+			</>
 		);
 	}
 
 	return (
 		<div>
+			<Head>
+				<title>Event: {event.title} - NextEvents</title>
+				<meta name="description" content={event.description} />
+			</Head>
 			<EventSummary title={event.title} />
 			<EventLogistics {...event} imageAlt={event.title} />
 			<EventContent>
