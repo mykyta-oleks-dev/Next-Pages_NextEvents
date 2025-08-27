@@ -1,7 +1,9 @@
-export default function handler(req, res) {
+import { getCollection } from '../../lib/mongodb/client';
+
+export default async function handler(req, res) {
 	switch (req.method) {
 		case 'POST':
-			return POST(req, res);
+			return await POST(req, res);
 
 		case 'GET':
 		default:
@@ -9,7 +11,7 @@ export default function handler(req, res) {
 	}
 }
 
-const POST = (req, res) => {
+const POST = async (req, res) => {
 	const { email } = req.body;
 	console.log(req.body);
 
@@ -19,11 +21,37 @@ const POST = (req, res) => {
 		});
 	}
 
-	return res.status(201).json({
-		message: 'You have been registered for a newsletter mailing!',
-	});
+	try {
+		const collection = await getCollection('newsletter');
+
+		const result = await collection.insertOne({
+			email,
+			createdAt: new Date(),
+		});
+
+		return res
+			.status(201)
+			.json({
+				message: 'You have been registered!',
+				id: result.insertedId,
+			});
+	} catch (err) {
+		console.error(err);
+
+		return res.status(500).json({
+			message: 'An error occured saving the emailf for mailing',
+		});
+	}
 };
 
-const GET = (req, res) => {
-	return res.status(200).json({ message: 'WIP' });
+const GET = async (req, res) => {
+	try {
+		const collection = await getCollection('newsletter');
+		const docs = await collection.find().toArray();
+
+		return res.status(200).json({ subscribers: docs });
+	} catch (err) {
+		console.error("MongoDB fetch error:", err);
+		return res.status(500).json({ message: "Something went wrong." });
+	}
 };
