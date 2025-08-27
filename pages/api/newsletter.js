@@ -13,7 +13,6 @@ export default async function handler(req, res) {
 
 const POST = async (req, res) => {
 	const { email } = req.body;
-	console.log(req.body);
 
 	if (!email || !email.includes('@')) {
 		return res.status(422).json({

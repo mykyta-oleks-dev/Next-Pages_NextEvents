@@ -12,7 +12,6 @@ export default async function handler(req, res) {
 
 const POST = async (req, res) => {
 	const { id } = req.query;
-	console.log({ id });
 	const { email, name, content } = req.body;
 
 	if (

@@ -6,7 +6,6 @@ function NewsletterRegistration() {
 
 		const fd = new FormData(event.target);
 		const email = fd.get('newsletter-email');
-		console.log(email);
 
 		fetch('/api/newsletter', {
 			method: 'POST',
