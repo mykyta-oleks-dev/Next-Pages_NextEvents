@@ -4,6 +4,7 @@ import DateIcon from '../icons/DateIcon';
 import AddressIcon from '../icons/AddressIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import { parseDate, parseLocation } from '../../util/parse';
+import Image from 'next/image';
 
 const EventItem = ({ event }) => {
 	const parsedDate = parseDate(event.date);
@@ -11,7 +12,7 @@ const EventItem = ({ event }) => {
 
 	return (
 		<li className={classes.item}>
-			<img src={'/' + event.image} alt={event.title} />
+			<Image src={'/' + event.image} alt={event.title} width={250} height={160} />
 			<div className={classes.content}>
 				<div>
 					<h2>{event.title}</h2>
