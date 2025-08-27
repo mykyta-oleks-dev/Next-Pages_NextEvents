@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import EventsList from '../../components/events/List';
 import EventsSearch from '../../components/events/Search';
-import { getAllEvents } from '../../lib/events';
+import { getAllEvents } from '../../lib/mongodb/events';
 
 const EventsPage = ({ events }) => {
 	return (

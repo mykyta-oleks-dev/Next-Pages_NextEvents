@@ -1,4 +1,4 @@
-import { getEventById, getFeaturedEvents } from '../../lib/events';
+import { getEventById, getFeaturedEvents } from '../../lib/mongodb/events';
 import EventSummary from '../../components/events/detail/EventSummary';
 import EventLogistics from '../../components/events/detail/EventLogistics';
 import EventContent from '../../components/events/detail/EventContent';
@@ -73,7 +73,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 	const params = (await getFeaturedEvents()).map((e) => ({
-		params: { id: e.id },
+		params: { id: e._id },
 	}));
 
 	return {

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import EventsList from '../components/events/List';
-import { getFeaturedEvents } from '../lib/events';
+import { getFeaturedEvents } from '../lib/mongodb/events';
 import NewsletterRegistration from '../components/newsletter/Registration';
 
 const HomePage = ({ events }) => {

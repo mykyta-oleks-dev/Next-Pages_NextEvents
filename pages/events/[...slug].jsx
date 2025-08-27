@@ -1,4 +1,4 @@
-import { getFilteredEvents } from '../../lib/events';
+import { getFilteredEvents } from '../../lib/mongodb/events';
 import EventsSearch from '../../components/events/Search';
 import EventsList from '../../components/events/List';
 import Button from '../../components/ui/Button';

@@ -12,7 +12,12 @@ const EventItem = ({ event }) => {
 
 	return (
 		<li className={classes.item}>
-			<Image src={'/' + event.image} alt={event.title} width={250} height={160} />
+			<Image
+				src={'/' + event.image}
+				alt={event.title}
+				width={250}
+				height={160}
+			/>
 			<div className={classes.content}>
 				<div>
 					<h2>{event.title}</h2>
@@ -26,7 +31,7 @@ const EventItem = ({ event }) => {
 					</div>
 				</div>
 				<div className={classes.actions}>
-					<Button href={`/events/${event.id}`}>
+					<Button href={`/events/${event._id}`}>
 						<span>Explore event</span>
 						<span className={classes.icon}>
 							<ArrowRightIcon />
