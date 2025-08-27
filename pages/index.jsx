@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import EventsList from '../components/events/List';
 import { getFeaturedEvents } from '../lib/events';
+import NewsletterRegistration from '../components/newsletter/Registration';
 
 const HomePage = ({ events }) => {
 	return (
@@ -12,6 +13,7 @@ const HomePage = ({ events }) => {
 					content="Browse the selected featured events for maximum growth"
 				/>
 			</Head>
+			<NewsletterRegistration />
 			<EventsList events={events} />
 		</div>
 	);

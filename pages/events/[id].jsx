@@ -2,8 +2,9 @@ import { getEventById, getFeaturedEvents } from '../../lib/events';
 import EventSummary from '../../components/events/detail/EventSummary';
 import EventLogistics from '../../components/events/detail/EventLogistics';
 import EventContent from '../../components/events/detail/EventContent';
-import ErrorAlert from '../../components/ErrorAlert';
+import ErrorAlert from '../../components/ui/ErrorAlert';
 import Head from 'next/head';
+import Comments from '../../components/comments';
 
 const EventDetailsPage = ({ event }) => {
 	if (event === null) {
@@ -49,6 +50,7 @@ const EventDetailsPage = ({ event }) => {
 			<EventContent>
 				<p>{event.description}</p>
 			</EventContent>
+			<Comments eventId={event.id} />
 		</div>
 	);
 };

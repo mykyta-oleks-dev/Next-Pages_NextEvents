@@ -2,7 +2,7 @@ import { getFilteredEvents } from '../../lib/events';
 import EventsSearch from '../../components/events/Search';
 import EventsList from '../../components/events/List';
 import Button from '../../components/ui/Button';
-import ErrorAlert from '../../components/ErrorAlert';
+import ErrorAlert from '../../components/ui/ErrorAlert';
 import Head from 'next/head';
 
 const Content = ({ events, isError, year, month }) => {
