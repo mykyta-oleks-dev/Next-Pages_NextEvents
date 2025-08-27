@@ -12,6 +12,8 @@ This is a web application built with NextJS and Pages routing browsing events. H
 
 -   npm - package manager for the JavaScript programming language maintained by npm, Inc., a subsidiary of GitHub.
 
+-   MongoDB - a popular, open-source, NoSQL database that uses a document-oriented data model, storing data in flexible, JSON-like documents.
+
 ## Installation
 
 The project uses `npm` as the package manager.
@@ -38,6 +40,12 @@ $ npm run build
 
 -   Browse events: Navigate to the `All events` page to see all events available or see the featured ones on the home page.
 
+-   Filter details list: Set up year and month of events as you want and search by the filter parameters.
+
 -   Get the details on the particular event: Navigate to the event you are interested in and have a look at the details, such as place, date and description.
 
--   Filter details list: Set up year and month of events as you want and search by the filter parameters.
+-   Leave your comments on the events: Input what you liked, didn't like or anticipate from the event, or generally your opinion of it.
+
+-   Browse comments: If the event was commented by anyone already, take a look at what is there to say about it!
+
+-   Subscribe to the newsletters mailing: On the home page, you can input your email and subscribe it for receiving the newsletters from us.
