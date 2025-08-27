@@ -1,21 +1,21 @@
+import Link from 'next/link';
 import classes from './CommentsList.module.css';
 
-function CommentList() {
+function CommentList({ comments }) {
+	console.log(comments);
 	return (
 		<ul className={classes.comments}>
-			{/* Render list of comments - fetched from API */}
-			<li>
-				<p>My comment is amazing!</p>
-				<div>
-					By <address>Maximilian</address>
-				</div>
-			</li>
-			<li>
-				<p>My comment is amazing!</p>
-				<div>
-					By <address>Maximilian</address>
-				</div>
-			</li>
+			{comments.map((c) => (
+				<li key={c.id}>
+					<p>{c.content}</p>
+					<div>
+						By{' '}
+						<address>
+							<Link href={`mailto:${c.email}`}>{c.name}</Link>
+						</address>
+					</div>
+				</li>
+			))}
 		</ul>
 	);
 }

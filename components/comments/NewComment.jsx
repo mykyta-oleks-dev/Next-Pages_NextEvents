@@ -1,42 +1,42 @@
 import { useRef, useState } from 'react';
 import classes from './NewComment.module.css';
 
-function NewComment(props) {
+function NewComment({ onAddComment }) {
 	const [isInvalid, setIsInvalid] = useState(false);
 
 	const emailInputRef = useRef();
 	const nameInputRef = useRef();
-	const commentInputRef = useRef();
+	const contentInputRef = useRef();
 
-	function sendCommentHandler(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
 
-		const enteredEmail = emailInputRef.current.value;
-		const enteredName = nameInputRef.current.value;
-		const enteredComment = commentInputRef.current.value;
+		const email = emailInputRef.current.value;
+		const name = nameInputRef.current.value;
+		const content = contentInputRef.current.value;
 
 		if (
-			!enteredEmail ||
-			enteredEmail.trim() === '' ||
-			!enteredEmail.includes('@') ||
-			!enteredName ||
-			enteredName.trim() === '' ||
-			!enteredComment ||
-			enteredComment.trim() === ''
+			!email ||
+			email.trim() === '' ||
+			!email.includes('@') ||
+			!name ||
+			name.trim() === '' ||
+			!content ||
+			content.trim() === ''
 		) {
 			setIsInvalid(true);
 			return;
 		}
 
-		props.onAddComment({
-			email: enteredEmail,
-			name: enteredName,
-			text: enteredComment,
+		onAddComment({
+			email,
+			name,
+			content,
 		});
 	}
 
 	return (
-		<form className={classes.form}>
+		<form className={classes.form} onSubmit={handleSubmit}>
 			<div className={classes.row}>
 				<div className={classes.control}>
 					<label htmlFor="email">Your email</label>
@@ -48,11 +48,11 @@ function NewComment(props) {
 				</div>
 			</div>
 			<div className={classes.control}>
-				<label htmlFor="comment">Your comment</label>
+				<label htmlFor="content">Your comment</label>
 				<textarea
-					id="comment"
+					id="content"
 					rows="5"
-					ref={commentInputRef}
+					ref={contentInputRef}
 				></textarea>
 			</div>
 			{isInvalid && (

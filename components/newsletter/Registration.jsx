@@ -4,9 +4,19 @@ function NewsletterRegistration() {
 	function registrationHandler(event) {
 		event.preventDefault();
 
-		// fetch user input (state or refs)
-		// optional: validate input
-		// send valid data to API
+		const fd = new FormData(event.target);
+		const email = fd.get('newsletter-email');
+		console.log(email);
+
+		fetch('/api/newsletter', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email }),
+		})
+			.then((res) => res.json())
+			.then((data) => alert(data.message));
 	}
 
 	return (
@@ -16,7 +26,8 @@ function NewsletterRegistration() {
 				<div className={classes.control}>
 					<input
 						type="email"
-						id="email"
+						id="newsletter-email"
+						name="newsletter-email"
 						placeholder="Your email"
 						aria-label="Your email"
 					/>
