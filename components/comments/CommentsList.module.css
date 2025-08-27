@@ -19,6 +19,7 @@
 	font-style: italic;
 }
 
-.comments address {
+.comments address,
+.comments time {
 	display: inline;
 }

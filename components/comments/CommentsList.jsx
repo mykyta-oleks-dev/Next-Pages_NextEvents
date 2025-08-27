@@ -21,6 +21,11 @@ function CommentList({ comments }) {
 							<Link href={`mailto:${c.email}`}>{c.name}</Link>
 						</address>
 					</div>
+					<div>
+						<time dateTime={c.createdAt}>
+							{new Date(c.createdAt).toLocaleString()}
+						</time>
+					</div>
 				</li>
 			))}
 		</ul>
