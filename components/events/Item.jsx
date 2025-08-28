@@ -16,7 +16,7 @@ const EventItem = ({ event }) => {
 				src={'/' + event.image}
 				alt={event.title}
 				width={250}
-				height={160}
+				height={250}
 			/>
 			<div className={classes.content}>
 				<div>
