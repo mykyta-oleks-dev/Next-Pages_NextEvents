@@ -3,6 +3,8 @@ import { useNotification } from '../../store/notificationContext';
 import classes from './Notification.module.css';
 import { createPortal } from 'react-dom';
 
+const NOTIFICATION_TIMER = 5000;
+
 function NotificationOverlay({ title, message, status }) {
 	const { hideNotification } = useNotification();
 
@@ -10,7 +12,7 @@ function NotificationOverlay({ title, message, status }) {
 	useEffect(() => {
 		timer.current = setTimeout(() => {
 			hideNotification();
-		}, 5000);
+		}, NOTIFICATION_TIMER);
 
 		return () => {
 			clearTimeout(timer.current);
@@ -20,7 +22,10 @@ function NotificationOverlay({ title, message, status }) {
 	const statusClasses = getStatusClass(status);
 
 	return createPortal(
-		<div className={`${classes.notification} ${statusClasses}`}>
+		<div
+			className={`${classes.notification} ${statusClasses}`}
+			style={{ '--notification-timer': `${NOTIFICATION_TIMER}ms` }}
+		>
 			<h2>{title}</h2>
 			<p>{message}</p>
 		</div>,

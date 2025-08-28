@@ -11,6 +11,27 @@
 	color: white;
 	padding: 0.5rem 10%;
 	box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+}
+
+.notification::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 5px; /* thickness of progress bar */
+	width: 100%;
+	background: rgba(255, 255, 255, 0.6);
+	animation: progressBar var(--notification-timer) ease-out forwards;
+}
+
+@keyframes progressBar {
+	from {
+		width: 100%;
+	}
+	to {
+		width: 0%;
+	}
 }
 
 .notification h2 {

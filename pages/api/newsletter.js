@@ -39,7 +39,7 @@ const POST = async (req, res) => {
 		});
 
 		return res.status(201).json({
-			message: 'You have been registered!',
+			message: 'You have been registered for our newsletters!',
 			id: result.insertedId,
 		});
 	} catch (err) {

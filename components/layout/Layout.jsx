@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
 			<main>{children}</main>
 			{notification && (
 				<NotificationOverlay
+					key={`notification-${Date.now()}`}
 					title={notification.title}
 					message={
 						notification.message ??
