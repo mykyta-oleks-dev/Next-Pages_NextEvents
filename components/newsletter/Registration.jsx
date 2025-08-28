@@ -1,11 +1,20 @@
+import { useNotification } from '../../store/notificationContext';
 import classes from './Registration.module.css';
 
 function NewsletterRegistration() {
+	const { showNotification } = useNotification();
+
 	function registrationHandler(event) {
 		event.preventDefault();
 
 		const fd = new FormData(event.target);
 		const email = fd.get('newsletter-email');
+
+		showNotification(
+			'Subscribing...',
+			'We are now saving your email',
+			'pending'
+		);
 
 		fetch('/api/newsletter', {
 			method: 'POST',
@@ -25,11 +34,11 @@ function NewsletterRegistration() {
 
 				return data;
 			})
-			.then((data) => alert(data.message))
+			.then((data) =>
+				showNotification('Success!', data.message, 'success')
+			)
 			.catch((err) => {
-				console.error(err);
-
-				alert(err.message);
+				showNotification('An error!', err.message, 'error');
 			});
 	}
 

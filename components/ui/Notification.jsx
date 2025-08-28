@@ -1,13 +1,30 @@
+import { useEffect, useRef } from 'react';
+import { useNotification } from '../../store/notificationContext';
 import classes from './Notification.module.css';
+import { createPortal } from 'react-dom';
 
-function Notification({ title, message, status }) {
+function NotificationOverlay({ title, message, status }) {
+	const { hideNotification } = useNotification();
+
+	const timer = useRef();
+	useEffect(() => {
+		timer.current = setTimeout(() => {
+			hideNotification();
+		}, 5000);
+
+		return () => {
+			clearTimeout(timer.current);
+		};
+	}, [hideNotification]);
+
 	const statusClasses = getStatusClass(status);
 
-	return (
+	return createPortal(
 		<div className={`${classes.notification} ${statusClasses}`}>
 			<h2>{title}</h2>
 			<p>{message}</p>
-		</div>
+		</div>,
+		document.getElementById('overlays')
 	);
 }
 
@@ -27,4 +44,4 @@ const getStatusClass = (status) => {
 	}
 };
 
-export default Notification;
+export default NotificationOverlay;
